@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <h1 class="my-5">Загрузка документов</h1>
+    <form method="post" enctype="multipart/form-data">
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">Upload File</button>
+    </form>
+</div>
+
+
+{% if files %}
+<style>
+    @media (min-width: 991.98px) {
+        #results img {
+            width: auto;
+            max-width: 60%;
+        }
+    }
+</style>
+<div class="container" id="results">
+    <div class="row my-5">
+        <div class="col-12">
+            <div class="page-header">
+                <h3 id="tables">Результат</h3>
+            </div>
+            <div class="bs-component">
+                <table class="table table-hover">
+                    <tr class="table-active">
+                        <th scope="col">Скан</th>
+                        <th scope="col">Тип документа</th>
+                    </tr>
+                    {% for file in files %}
+                    <tr>
+
+                        <th scope="row">
+                            <img src="{{file.files.url}}" class="img-fluid img-thumbnail">
+                        </th>
+                        <td> {{file.type}} </td>
+
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock content %}
